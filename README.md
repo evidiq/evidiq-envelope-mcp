@@ -44,11 +44,11 @@ over the caller's own bytes plus a handful of DNS TXT lookups.
    capabilities, cost, input validation, structure, explanation, raw DNS, report
    verification and artifact retrieval.
 
-> **Launch status: Phase 1 — live, gate bypassed, not yet listed.** Deployed at
-> `https://mcp.evidiq.dev/envelope/mcp` (port 3020) with the x402 gate bypassed so every
-> tool can be exercised before payment goes live. **Phase 2 (gate on, OKX.AI
-> registration, live paid settlement) is planned — the table cells below stay blank
-> until observed.**
+> **Launch status: registered, listing under review.** Deployed at
+> `https://mcp.evidiq.dev/envelope/mcp` (port 3020), the x402 gate is on, and a real
+> paid call has settled on X Layer. Registered on OKX.AI as Agent **#10435** with all
+> 18 tools — the service diff against live `tools/list` is empty in both directions.
+> Listing status: `Listing under review`.
 >
 > **Fixture gate:** passed 7/7 against `mailauth@4.13.3` with three documented
 > findings, each reported to the operator and approved before work continued (details
@@ -119,14 +119,15 @@ removal; Envelope neither redacts nor stores.
 
 | Property | Value |
 | :--- | :--- |
-| **Agent ID** | — (Phase 2) |
-| **Agent Name** | — (Phase 2) |
-| **Listing Status** | Not yet registered |
-| **Registration Tx** | — (Phase 2) |
-| **OKX Agent URL** | — (Phase 2) |
+| **Agent ID** | `#10435` |
+| **Agent Name** | `EVIDIQ Envelope` |
+| **Listing Status** | `Listing under review` |
+| **Registration Tx** | [`0xa333cbc0…f3011`](https://www.oklink.com/xlayer/tx/0xa333cbc0b7bf519f3cc88f739afe192925f2810bc864b393562ff943a17f3011) |
+| **OKX Agent URL** | https://www.okx.ai/agents/10435 |
 | **Agent Wallet** | `0x2a8efe3093278bb4bd3b2d9c7b5ba992ca4fc9b0` |
 | **Report Signer** | `0x8a3c7524Aaed081825aC88eC7f4cCECFc583ee7D` (fleet signer, EIP-191) |
-| **Services Registered** | — (Phase 2: 10 Paid $0.005–$0.03, 8 Free $0.00) |
+| **Communication Addr** | `0x393948d04531205Bb2Bc10f32868f8ab7928a58d` |
+| **Services Registered** | 18 Tools (10 Paid: $0.005–$0.03, 8 Free: $0.00) |
 
 ---
 
