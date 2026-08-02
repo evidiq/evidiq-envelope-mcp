@@ -250,8 +250,35 @@ npm test (vitest)               → 58 passed / 58 (4 files), tsc clean
 
 ### Live test (Phase 1, bypass on)
 
-To be appended after the live probe and the OpenClaw run — this file ships before the
-first deploy, so nothing here is claimed that has not been observed.
+All 18 tools were exercised live against `https://mcp.evidiq.dev/envelope/mcp` with the
+bypass on (Phase 1), through direct MCP calls and through the OpenClaw agent (glm-5.2);
+raw run in `docs/live-test/envelope-livetest-out.json`.
+
+```
+tools/list                      → 18 tools listed ✓
+Free Tools (HTTP 200)
+  envelope_capabilities {}      → 200 ✓ (18 tools, 8 claim limits)
+  validate_message_input {}     → 200 ✓ (parseable, which paid checks can run)
+  check_dns_txt (example.com)   → 200 ✓ (SPF v=spf1 -all · DMARC p=reject · DKIM selector)
+Paid Tools (200 here because the bypass was on)
+  verify_message_auth           → 200 ✓ not-authenticated (DKIM none · SPF fail · DMARC fail)
+  assess_attachment_surface     → 200 ✓ risky: invoice.pdf.exe double extension
+  screen_domain_posture         → 200 ✓ SPF valid -all · DMARC reject · 6 selectors resolve
+  attest_message_verdict        → 200 ✓ digest 0x9c45f937… · EIP-191 · 0G anchored
+                                    root 0xa377a863… · tx 0xcbd7f01c…
+  verify_envelope_report        → 200 ✓ signatureValid: true · signer 0x8a3c…ee7D
+  get_artifact                  → 200 ✓ full artifact with anchorRoot + anchorTx
+Public route                    → /envelope/health 200 · /envelope/skill.md 200 · /envelope/mcp 200 ✓
+```
+
+### Live test through the OpenClaw agent (glm-5.2)
+
+The Envelope skill was exercised end-to-end by the OpenClaw agent:
+the agent read the skill, discovered the MCP server, and called all 18 tools in one run
+against `https://mcp.evidiq.dev/envelope/mcp` — 18/18 → 200 ✓, including a second 0G
+anchor. Full run output in `docs/live-test/envelope-livetest-out.json`.
+
+![EVIDIQ Envelope MCP — live test report](./docs/live-test/report.png)
 
 ### Phase 2 — planned, cells stay blank until observed
 

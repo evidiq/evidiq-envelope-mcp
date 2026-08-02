@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EVIDIQ Envelope MCP — Live Test Report</title>
+<style>
+  body { font-family: "DejaVu Sans", sans-serif; margin: 0; padding: 32px; background: #0b1020; color: #e8ecf5; }
+  h1 { margin: 0 0 4px; font-size: 26px; color: #ffffff; }
+  .sub { color: #8a94b0; font-size: 13px; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+  .card { background: #141b31; border: 1px solid #232c4a; border-radius: 10px; padding: 14px 16px; }
+  .tool { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1d2540; }
+  .tool:last-child { border-bottom: none; }
+  .name { font-weight: 600; font-size: 14px; color: #cfd8ee; }
+  .detail { font-size: 11.5px; color: #7f8aac; margin-top: 2px; }
+  .badge { border-radius: 999px; padding: 3px 10px; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+  .ok { background: #12331f; color: #4ade80; border: 1px solid #1e5a38; }
+  .panel { background: #10172a; border: 1px solid #232c4a; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+  .panel h2 { margin: 0 0 10px; font-size: 14px; color: #9fb0dd; text-transform: uppercase; letter-spacing: 0.08em; }
+  .kv { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
+  .kv span:first-child { color: #7f8aac; }
+  .kv span:last-child { font-family: monospace; color: #cfe0ff; font-size: 12px; }
+  .sig { font-family: monospace; font-size: 11px; color: #8fd3a8; word-break: break-all; }
+</style>
+</head>
+<body>
+  <h1>EVIDIQ Envelope — MCP Live Test</h1>
+  <div class="sub">mcp.evidiq.dev/envelope &bull; 18 tools (10 paid / 8 free) &bull; Phase 1, X402_BYPASS=1 &bull; run via OpenClaw agent (glm-5.2) &bull; 2026-08-03</div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Free tools (bare {} → 200)</h2>
+      <div class="tool"><div><div class="name">envelope_capabilities</div><div class="detail">18 tools, 8 claim limits, boundaries Bulwark/Circuit/Redact</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">estimate_cost</div><div class="detail">verify_message_auth = 0.01 USDT0 (atomic 10000)</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">validate_message_input</div><div class="detail">parseable, 0 auth headers, 6 paid checks can run</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">parse_message_structure</div><div class="detail">9 headers, 1 Received hop, body 67 bytes</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">explain_auth_result</div><div class="detail">body hash mismatch explained + what it does not prove</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">check_dns_txt</div><div class="detail">SPF v=spf1 -all, DMARC p=reject, DKIM selector</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">verify_envelope_report</div><div class="detail">signatureValid=true, signer 0x8a3c…ee7D, known=true</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">get_artifact</div><div class="detail">artifact with anchorRoot + anchorTx retrieved</div></div><span class="badge ok">200 ✓</span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Paid tools (200 — bypass on, Phase 1)</h2>
+      <div class="tool"><div><div class="name">verify_dkim</div><div class="detail">per-signature, not-pass with reason, digest 0xf8ea…</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">check_dmarc_alignment</div><div class="detail">dmarc-not-aligned, adkim=s aspf=s</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">verify_message_auth</div><div class="detail">not-authenticated; DKIM none, SPF fail, DMARC fail</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">validate_arc_chain</div><div class="detail">no-arc-chain — normal for direct delivery</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">detect_sender_spoofing</div><div class="detail">no-indicators, matches expected sender</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">audit_header_chain</div><div class="detail">1 hop, internally consistent, no anomalies</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">assess_attachment_surface</div><div class="detail">risky: .pdf.exe double extension (high)</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">assess_link_surface</div><div class="detail">structural only; lookalike needs expectedSenders</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">screen_domain_posture</div><div class="detail">SPF -all valid, DMARC reject strong, 6 selectors</div></div><span class="badge ok">200 ✓</span></div>
+      <div class="tool"><div><div class="name">attest_message_verdict</div><div class="detail">digest 0x7af1…, EIP-191, anchored 0G</div></div><span class="badge ok">200 ✓</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>0G anchoring — real, on chain 16661</h2>
+    <div class="kv"><span>First attestation digest</span><span>0x9c45f9371384366fd937c5202827d9dac526b540ee7c7af69a96ec67705d5414</span></div>
+    <div class="kv"><span>Anchor root (first)</span><span>0xa377a863fd574ac95c5db763372e57a97cf2531aebb1b8d66c75846bbe23d147</span></div>
+    <div class="kv"><span>Anchor tx (first)</span><span>0xcbd7f01cd75770757bd1c1a1f93ec5761027dc1f2be51477cd542c18cd891de5</span></div>
+    <div class="kv"><span>Anchor root (OpenClaw run)</span><span>0x4ad2…</span></div>
+    <div class="kv"><span>Anchor tx (OpenClaw run)</span><span>0xaf89…</span></div>
+    <div class="kv"><span>Signer (EIP-191)</span><span>0x8a3c7524Aaed081825aC88eC7f4cCECFc583ee7D</span></div>
+    <div class="sig">signature 0x0d3346adf2c3167320715a6123ec84efe8ef2092b4e9bc85b7bac2c722d2d14c1e8440f608805ad9eccd63bc836239bf8f041f853eb5e27c1cce85e824f3f3441b</div>
+  </div>
+
+  <div class="panel">
+    <h2>§6 fixture gate — mailauth 4.13.3</h2>
+    <div class="kv"><span>Result</span><span>7/7 fixtures pass; 3 deviations reported, operator-approved</span></div>
+    <div class="kv"><span>F2 / F3</span><span>body-hash &amp; missing-key report as neutral (not-pass + reason) — approved</span></div>
+    <div class="kv"><span>F4</span><span>mailauth strict alignment deviates from RFC 7489 — Envelope computes alignment locally</span></div>
+    <div class="kv"><span>Tests</span><span>58/58 passing · tsc clean</span></div>
+  </div>
+</body>
+</html>

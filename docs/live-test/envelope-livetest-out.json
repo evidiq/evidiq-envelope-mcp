@@ -1,0 +1,852 @@
+{
+  "runId": "99807f5c-a776-4fbb-b082-0ddbc27acbfd",
+  "status": "ok",
+  "summary": "completed",
+  "result": {
+    "payloads": [
+      {
+        "text": "All 18 tools returned. Here's the full report:\n\n**FREE tools:**\n1. **envelope_capabilities** → 200 ✓ — 18 tools listed (10 paid, 8 free), 8 claim limits, boundaries to Bulwark/Circuit/Redact\n2. **estimate_cost** → 200 ✓ — verify_message_auth = 0.01 USDT0 (10000 atomic, eip155:196)\n3. **validate_message_input** → 200 ✓ — parseable, 0 auth headers present, 6 paid checks can run\n4. **parse_message_structure** → 200 ✓ — 9 headers, 1 Received hop, 0 attachments, 0 links, body 67 bytes\n5. **explain_auth_result** → 200 ✓ — body hash mismatch = signature present but altered or not genuine; does not prove intent/safety\n6. **check_dns_txt** → 200 ✓ — SPF `v=spf1 -all`, DMARC `p=reject`, DKIM default selector empty key\n7. **verify_envelope_report** → 200 ✓ — signatureValid=true, signer matches fleet 0x8a3c…ee7D, knownToThisService=true\n8. **get_artifact** → 200 ✓ — artifact retrieved with anchorRoot + anchorTx, verdict \"not-authenticated\", libraryVersion 4.13.3\n\n**PAID tools (gate bypassed, all answered 200):**\n9. **verify_dkim** → 200 ✓ — 0/1 signatures verify, verdict \"signed-but-not-verifying\" (message not signed), digest 0xf8ea…\n10. **check_dmarc_alignment** → 200 ✓ — verdict \"dmarc-not-aligned\", neither DKIM nor SPF aligns under strict (adkim=s, aspf=s)\n11. **verify_message_auth** → 200 ✓ — verdict \"not-authenticated\", DKIM=none, SPF=fail (-all), DMARC=fail (reject), ARC=none\n12. **validate_arc_chain** → 200 ✓ — verdict \"no-arc-chain\", normal for directly delivered mail, auth-results captured\n13. **detect_sender_spoofing** → 200 ✓ — verdict \"no-indicators\", From=Return-Path=alice@example.com, matches expected sender\n14. **audit_header_chain** → 200 ✓ — verdict \"no-anomalies\", 1 hop (mail.example.com → mx.example.com) internally consistent\n15. **assess_attachment_surface** → 200 ✓ — verdict \"risky-attachments\", double extension .pdf.exe (high) + macro-capable .exe (warning)\n16. **assess_link_surface** → 200 ✓ — verdict \"no-risk-indicators\", 1 link checked (examp1e.com/pay — note: lookalike not flagged without expectedSenders for comparison)\n17. **screen_domain_posture** → 200 ✓ — verdict \"no-critical-gaps\", SPF valid -all, DMARC reject strong, 6 DKIM selectors resolvable, DNSSEC absent (info)\n18. **attest_message_verdict** → 200 ✓ — digest 0x7af1…, anchored to 0G (root 0x4ad2…, tx 0xaf89…), EIP-191 signed, verdict \"not-authenticated\"\n\n---\n\n**Run summary:** 18/18 tools → 200 ✓, 0 ✗ — every free and paid tool on the Envelope MCP responded correctly with signed, digested reports; the test message (unsigned, SPF=-all, DMARC=reject) consistently produced \"not-authenticated\" across all auth-checking tools, the attestation anchored to 0G successfully, and the one behavioral note is that `assess_link_surface` did not flag the `examp1e.com` lookalike because no `expectedSenders` were passed for domain comparison.",
+        "mediaUrl": null
+      }
+    ],
+    "meta": {
+      "durationMs": 69116,
+      "agentMeta": {
+        "sessionId": "d949901b-53f3-4d1b-8bac-824bbf1ae347",
+        "sessionFile": "/home/cucu/.openclaw/agents/main/sessions/d949901b-53f3-4d1b-8bac-824bbf1ae347.jsonl",
+        "provider": "zerog",
+        "model": "glm-5.2",
+        "contextTokens": 200000,
+        "agentHarnessId": "openclaw",
+        "usage": {
+          "input": 35325,
+          "output": 4544,
+          "cacheRead": 23296,
+          "total": 37004
+        },
+        "lastCallUsage": {
+          "input": 11966,
+          "output": 1742,
+          "cacheRead": 23296,
+          "cacheWrite": 0,
+          "total": 37004
+        },
+        "promptTokens": 35262,
+        "contextBudgetStatus": {
+          "schemaVersion": 1,
+          "source": "pre-prompt-estimate",
+          "updatedAt": 1785710599759,
+          "provider": "zerog",
+          "model": "glm-5.2",
+          "route": "fits",
+          "shouldCompact": false,
+          "estimatedPromptTokens": 14440,
+          "contextTokenBudget": 200000,
+          "promptBudgetBeforeReserve": 180000,
+          "reserveTokens": 20000,
+          "effectiveReserveTokens": 20000,
+          "remainingPromptBudgetTokens": 165560,
+          "overflowTokens": 0,
+          "toolResultReducibleChars": 0,
+          "messageCount": 0,
+          "unwindowedMessageCount": 0,
+          "sessionId": "d949901b-53f3-4d1b-8bac-824bbf1ae347"
+        }
+      },
+      "aborted": false,
+      "systemPromptReport": {
+        "source": "run",
+        "generatedAt": 1785710599659,
+        "sessionId": "d949901b-53f3-4d1b-8bac-824bbf1ae347",
+        "sessionKey": "agent:main:main",
+        "provider": "zerog",
+        "model": "glm-5.2",
+        "workspaceDir": "/home/cucu/.openclaw/workspace",
+        "bootstrapMaxChars": 20000,
+        "bootstrapTotalMaxChars": 60000,
+        "bootstrapTruncation": {
+          "warningMode": "always",
+          "warningShown": false,
+          "truncatedFiles": 0,
+          "nearLimitFiles": 0,
+          "totalNearLimit": false
+        },
+        "sandbox": {
+          "mode": "off",
+          "sandboxed": false
+        },
+        "systemPrompt": {
+          "chars": 44777,
+          "hash": "fbae036a58d862b145ec45a7f842ed68ef9ef6be50e58900cdbdcc12152fb0c1",
+          "projectContextChars": 15788,
+          "nonProjectContextChars": 28989
+        },
+        "injectedWorkspaceFiles": [
+          {
+            "name": "AGENTS.md",
+            "path": "/home/cucu/.openclaw/workspace/AGENTS.md",
+            "missing": false,
+            "rawChars": 7727,
+            "injectedChars": 7727,
+            "truncated": false
+          },
+          {
+            "name": "SOUL.md",
+            "path": "/home/cucu/.openclaw/workspace/SOUL.md",
+            "missing": false,
+            "rawChars": 1738,
+            "injectedChars": 1738,
+            "truncated": false
+          },
+          {
+            "name": "TOOLS.md",
+            "path": "/home/cucu/.openclaw/workspace/TOOLS.md",
+            "missing": false,
+            "rawChars": 850,
+            "injectedChars": 850,
+            "truncated": false
+          },
+          {
+            "name": "IDENTITY.md",
+            "path": "/home/cucu/.openclaw/workspace/IDENTITY.md",
+            "missing": false,
+            "rawChars": 633,
+            "injectedChars": 633,
+            "truncated": false
+          },
+          {
+            "name": "USER.md",
+            "path": "/home/cucu/.openclaw/workspace/USER.md",
+            "missing": false,
+            "rawChars": 740,
+            "injectedChars": 740,
+            "truncated": false
+          },
+          {
+            "name": "HEARTBEAT.md",
+            "path": "/home/cucu/.openclaw/workspace/HEARTBEAT.md",
+            "missing": false,
+            "rawChars": 192,
+            "injectedChars": 192,
+            "truncated": false
+          },
+          {
+            "name": "MEMORY.md",
+            "path": "/home/cucu/.openclaw/workspace/MEMORY.md",
+            "missing": false,
+            "rawChars": 3536,
+            "injectedChars": 3536,
+            "truncated": false
+          }
+        ],
+        "skills": {
+          "promptChars": 16340,
+          "hash": "17688f27859d490c7183d98c30a8ac5fa1d1b8f8d9ea82f08f04311e824b09f7",
+          "entries": [
+            {
+              "name": "browser-automation",
+              "blockChars": 371
+            },
+            {
+              "name": "canvas",
+              "blockChars": 289
+            },
+            {
+              "name": "clawhub",
+              "blockChars": 359
+            },
+            {
+              "name": "diagram-maker",
+              "blockChars": 332
+            },
+            {
+              "name": "healthcheck",
+              "blockChars": 344
+            },
+            {
+              "name": "meme-maker",
+              "blockChars": 317
+            },
+            {
+              "name": "node-connect",
+              "blockChars": 347
+            },
+            {
+              "name": "node-inspect-debugger",
+              "blockChars": 343
+            },
+            {
+              "name": "notion",
+              "blockChars": 338
+            },
+            {
+              "name": "okx-activity",
+              "blockChars": 826
+            },
+            {
+              "name": "okx-agent-payments-protocol",
+              "blockChars": 1097
+            },
+            {
+              "name": "okx-agentic-wallet",
+              "blockChars": 1134
+            },
+            {
+              "name": "okx-ai",
+              "blockChars": 1153
+            },
+            {
+              "name": "okx-dapp-discovery",
+              "blockChars": 1208
+            },
+            {
+              "name": "okx-defi",
+              "blockChars": 1327
+            },
+            {
+              "name": "okx-dex-market",
+              "blockChars": 1108
+            },
+            {
+              "name": "okx-growth-competition",
+              "blockChars": 893
+            },
+            {
+              "name": "okx-guide",
+              "blockChars": 1993
+            },
+            {
+              "name": "python-debugpy",
+              "blockChars": 331
+            },
+            {
+              "name": "skill-creator",
+              "blockChars": 325
+            },
+            {
+              "name": "spike",
+              "blockChars": 317
+            },
+            {
+              "name": "taskflow",
+              "blockChars": 347
+            },
+            {
+              "name": "taskflow-inbox-triage",
+              "blockChars": 357
+            },
+            {
+              "name": "weather",
+              "blockChars": 355
+            }
+          ]
+        },
+        "tools": {
+          "listChars": 0,
+          "schemaChars": 24323,
+          "entries": [
+            {
+              "name": "read",
+              "summaryChars": 303,
+              "summaryHash": "b15dd29794ef5562ddee30a6282387ee7b40b9806c10ae2616daf75514ddc1f6",
+              "schemaChars": 304,
+              "schemaHash": "134f19bcabe3e29d63c5cebb38f1d2556759fd08adad6bc90a4b4d3cd1fb8441",
+              "propertiesCount": 3
+            },
+            {
+              "name": "edit",
+              "summaryChars": 326,
+              "summaryHash": "c498a85576e187d069e8e8ea4f70f81bddd57829600d385ef61c4359fd634c9e",
+              "schemaChars": 834,
+              "schemaHash": "457e8bb9f800b21be76c4fd8c0e3078bf07ee9bf93ac82f39944c171bd8f6d84",
+              "propertiesCount": 2
+            },
+            {
+              "name": "write",
+              "summaryChars": 127,
+              "summaryHash": "cdb1c46027b22d1f1b923b47bfe297821d9fe589a9f9d92994961948060a4d89",
+              "schemaChars": 225,
+              "schemaHash": "e98a2484f667cf7c22d76ca103bf2022bf9113dc63fe38b899e71c328cb1e833",
+              "propertiesCount": 2
+            },
+            {
+              "name": "apply_patch",
+              "summaryChars": 132,
+              "summaryHash": "432bf38688a4f011d2b765a441ac07e1fdfa9faf2051679adee04abcd9332d93",
+              "schemaChars": 153,
+              "schemaHash": "05521268363ff4f191472c90d69ef08a503ba9acf1d2febc50b3ee68db32ab65",
+              "propertiesCount": 1
+            },
+            {
+              "name": "exec",
+              "summaryChars": 446,
+              "summaryHash": "369f5e5e195c647ab1e3cfad282e6d25488d4b9fe269f1157e273a546ca80295",
+              "schemaChars": 1332,
+              "schemaHash": "49dcb29ee9f7016cd248f40cfb44508aac4d6a67d4c9acb52cbd08ad3e3ae893",
+              "propertiesCount": 12
+            },
+            {
+              "name": "process",
+              "summaryChars": 362,
+              "summaryHash": "21d78afb643a24f211fe9aa86c748f165ca82f1dc21bbaf6e3e6d6d4d4411d86",
+              "schemaChars": 1074,
+              "schemaHash": "a2d30a25569f409d7e8539844c89a088044535388b24031d014577b96ed27c5c",
+              "propertiesCount": 12
+            },
+            {
+              "name": "get_goal",
+              "summaryChars": 71,
+              "summaryHash": "58dea7906d9e17e5f89a75fea24597ee068d8a56af824370dc27f8501374d6e3",
+              "schemaChars": 33,
+              "schemaHash": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259",
+              "propertiesCount": 0
+            },
+            {
+              "name": "create_goal",
+              "summaryChars": 155,
+              "summaryHash": "f01e3a63d673a410ba55213ce6bd3fa2b0d2279e8e780c18aa0cb5aa991b29b3",
+              "schemaChars": 267,
+              "schemaHash": "27ee794432736471bd76390e236cc7d7e98f8469a02656e7a27109041eea0f8c",
+              "propertiesCount": 2
+            },
+            {
+              "name": "update_goal",
+              "summaryChars": 212,
+              "summaryHash": "285201690e5f2456b4cdcd252ff391709b84d69538df61bad694d3c0cfc19958",
+              "schemaChars": 207,
+              "schemaHash": "c37894492eedfad02f1e7fe1488900765bfe547f3b3f34cefbab4f7f57441c2c",
+              "propertiesCount": 2
+            },
+            {
+              "name": "skill_workshop",
+              "summaryChars": 171,
+              "summaryHash": "577c1d2b8f56bf3e9dd5e00463bbce8b8bf4cf201da9b21b588dcaa3bc6ed8cf",
+              "schemaChars": 2298,
+              "schemaHash": "a15f720240f6f8fed5b136844a6868388a4c35170b419a89c570bc560dc27090",
+              "propertiesCount": 13
+            },
+            {
+              "name": "update_plan",
+              "summaryChars": 163,
+              "summaryHash": "ea18cc44224e849c68cdf0a4839c295c1b20daf2699e2fc2be4c4e1552327455",
+              "schemaChars": 489,
+              "schemaHash": "50cb08b8a29e72637eb6720e6f5f3786783824537574f05ee9ae7a5f4ecacc4b",
+              "propertiesCount": 2
+            },
+            {
+              "name": "sessions_list",
+              "summaryChars": 150,
+              "summaryHash": "6991b34a692cbbecc50302184503776bf8d7317b336d649fcd9373beab5473dc",
+              "schemaChars": 465,
+              "schemaHash": "89e377fd8694a3b81a5d72a0e9536e1770a127aff3ee539cef01c5af01e59129",
+              "propertiesCount": 10
+            },
+            {
+              "name": "sessions_history",
+              "summaryChars": 149,
+              "summaryHash": "09b418c8da696b361c021f66705dab0215a613f6c18a9722767f6129907e0dcd",
+              "schemaChars": 202,
+              "schemaHash": "7c48bf270e608aa5c167ec15d571b536c626aed56e88d6e760fcf0802bb75cc4",
+              "propertiesCount": 4
+            },
+            {
+              "name": "sessions_send",
+              "summaryChars": 282,
+              "summaryHash": "061e9ef3487676bb2a4fd4c0336bd973aaab5eea0725e7443c4cb17518cd1e78",
+              "schemaChars": 275,
+              "schemaHash": "f1fbaa412fe6b6aee102234c87c5aa140f39c9086f9bae6e1e9691309a602ffb",
+              "propertiesCount": 5
+            },
+            {
+              "name": "sessions_spawn",
+              "summaryChars": 578,
+              "summaryHash": "c75061234ba01a4eb29ca223c1c63a44935e9e555ef2ca280722ba9e844db86d",
+              "schemaChars": 1151,
+              "schemaHash": "9a91c7668463da8a66386260ce2ae97e7efe3bb93b9b6f03ac85102c354457e1",
+              "propertiesCount": 15
+            },
+            {
+              "name": "sessions_yield",
+              "summaryChars": 79,
+              "summaryHash": "f3782fc41c1522657e1d3494f486a2df998fed38a6b89dcf7f6934fb41424320",
+              "schemaChars": 60,
+              "schemaHash": "b1c4c753820bc3096d85ef7a266a14c9fbe12450536db58076b75bb61d14dbbb",
+              "propertiesCount": 1
+            },
+            {
+              "name": "subagents",
+              "summaryChars": 132,
+              "summaryHash": "1c2ffd38549c0444b118d43736fc4b875ea1aaabc446bbf8bc1fc4ee9180cca4",
+              "schemaChars": 122,
+              "schemaHash": "c4a241d2c3d46ba7985abfce4d3fcd63298ce81f89d49183c8f3d584c48d0c33",
+              "propertiesCount": 2
+            },
+            {
+              "name": "session_status",
+              "summaryChars": 278,
+              "summaryHash": "71177e543dc6235bad4b1a26761995681dcec27ab58dcb4f4f8a7fc9a7b2b5aa",
+              "schemaChars": 89,
+              "schemaHash": "d2995f3d69d126e98ac93eec3c2a9fe5556925bd7979a8e4b6b5a2bf62d329dd",
+              "propertiesCount": 2
+            },
+            {
+              "name": "web_search",
+              "summaryChars": 65,
+              "summaryHash": "b38e9b3c079beaa988d3c576303660b91a55c2e72f56351da04160529173273f",
+              "schemaChars": 991,
+              "schemaHash": "3879e368875d824b14e0e683f81408824e9a2a5850fa2f8514a68caebda54d18",
+              "propertiesCount": 12
+            },
+            {
+              "name": "web_fetch",
+              "summaryChars": 93,
+              "summaryHash": "8875afbb51bd63673e5e6836ca31eeda73914a464862665cd73b346e28d28fd5",
+              "schemaChars": 317,
+              "schemaHash": "d2d8ad58a1b84d849dd16142282aff6c5606f7b0e3d08405e1b740a6a79e6bcc",
+              "propertiesCount": 3
+            },
+            {
+              "name": "memory_search",
+              "summaryChars": 605,
+              "summaryHash": "0f918d28864d3682ae77731f149273997c84773592a466b18c7cd0121b599a05",
+              "schemaChars": 250,
+              "schemaHash": "088cd2a3d3a47b251429ff7c56844cdedd1c45c3af0fa8bfaf7aa795766976bf",
+              "propertiesCount": 4
+            },
+            {
+              "name": "memory_get",
+              "summaryChars": 239,
+              "summaryHash": "bff1141a3da31a345c550337417efc9ace4da2909004606c727c59ca1a294495",
+              "schemaChars": 241,
+              "schemaHash": "78f5d58460a82f9104deebad2f1873a8cde05d1ce7328b3ba4da6e994653e70a",
+              "propertiesCount": 4
+            },
+            {
+              "name": "evidiq-aegis-vps__aegis_capabilities",
+              "summaryChars": 86,
+              "summaryHash": "02a867af33ac8dfa0484e2e4d26b7e215cc38ce0bac63ff41e41b9e4089f6a4a",
+              "schemaChars": 85,
+              "schemaHash": "55afd3d22cd35ef3b5e3dc2e2651ad10a586f230804ece94dcd65ac7867639fb",
+              "propertiesCount": 0
+            },
+            {
+              "name": "evidiq-aegis-vps__attest_budget_verdict",
+              "summaryChars": 94,
+              "summaryHash": "fcad6e2627ecee2ad15fc026f130f255fb008bc8c01d7e2b59b8c6faba4c1932",
+              "schemaChars": 368,
+              "schemaHash": "4ba8c44b6e9b7a225b7a300f95dff107f3ca69791b51152ee5af89ca904049da",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-aegis-vps__audit_spending_window",
+              "summaryChars": 84,
+              "summaryHash": "1ad4e1671207d6d339d1a3c7bf1a7aa91fd9a9222d503760688d8419d5952a43",
+              "schemaChars": 703,
+              "schemaHash": "23c73a44b7e7a3afbcc6fd9edf290fe6dc078379fc93cc72510ea5e593e5e4ad",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-aegis-vps__estimate_cost",
+              "summaryChars": 53,
+              "summaryHash": "2fbac8911bf818e34285a939c997a59419e8b2498ef4683bbea247d268b4660e",
+              "schemaChars": 187,
+              "schemaHash": "153cf2eb4e12b39d889b08a074b2f080b6e246cbfd703a4b6c53b0fd43325af0",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-aegis-vps__get_artifact",
+              "summaryChars": 62,
+              "summaryHash": "98ae047697e5db35058b75abc37308aa100555467538486b8610bbdff569110f",
+              "schemaChars": 181,
+              "schemaHash": "16ba88c335653294ae2f14b187d2b08f791d54c2722639ffa2dd7a0222acd090",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-aegis-vps__guard_slippage_inflation",
+              "summaryChars": 100,
+              "summaryHash": "345e3cd5402d0fade27df6116033fea8d119b9791a2e2f0df5d755806489f0f6",
+              "schemaChars": 509,
+              "schemaHash": "86b8661f5cbd5ae876b556faffb27e869d9e04f09f863d0130e226ece09619b3",
+              "propertiesCount": 5
+            },
+            {
+              "name": "evidiq-aegis-vps__inspect_escrow_release",
+              "summaryChars": 95,
+              "summaryHash": "dcea87610af39db5f79545907707eeafb4df179120c99cfebd08e1bd73e30386",
+              "schemaChars": 438,
+              "schemaHash": "d2f73c2d56b4f1f96d704e99f67f487031e87760b48fef35d6a391596f06ae23",
+              "propertiesCount": 4
+            },
+            {
+              "name": "evidiq-aegis-vps__validate_transfer_params",
+              "summaryChars": 72,
+              "summaryHash": "520a5450b3f6535390ef9134a98fe396e2d622b579dfce4beadd3e41d7d28d1f",
+              "schemaChars": 177,
+              "schemaHash": "1e0c59ee67f8b984eef4719f0822e2ba217792e4d3b596468179b559dfda20ce",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-aegis-vps__verify_aegis_report",
+              "summaryChars": 77,
+              "summaryHash": "7258531a57ec00c9bd556a98a125313f8469fa35edf9c23dc62ec87507954be4",
+              "schemaChars": 164,
+              "schemaHash": "2a17d2bcfc9ed887c89fac4e6b2c40b15b495e09d2d560897089662390065785",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-aegis-vps__verify_payment_policy",
+              "summaryChars": 105,
+              "summaryHash": "fe56b6d0bb2bef9b209861757d4a123711b4998c660d544b74683cf8f1b64d8f",
+              "schemaChars": 392,
+              "schemaHash": "bdd8e734fc38c77b3e5a4a1f82114f2d8a88f6fff30fa9c32c033f26c0fffb78",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-compass__attest_market_report",
+              "summaryChars": 250,
+              "summaryHash": "1f72afcb454c58fc1baa1c61db2288f29934bdd7c235a247b9383ac3c2b57ba3",
+              "schemaChars": 328,
+              "schemaHash": "951bea7079cc538e64424098c5193b5410e6048118b92e24a7a2f1345c7e102b",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-compass__category_map",
+              "summaryChars": 145,
+              "summaryHash": "25c9e88188f7958516649e16c7cb90bccd30ad8a19d944f11bf3a8ba4541cef3",
+              "schemaChars": 189,
+              "schemaHash": "2058f83d91e68e12418e00112ad8c308b3e1427908715178fa8154e9abb017c9",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-compass__compass_capabilities",
+              "summaryChars": 193,
+              "summaryHash": "b4a595cfcc9a531bb5c8d9708c819541da95fb4094ebdf62f78a9ea45e1a6001",
+              "schemaChars": 85,
+              "schemaHash": "55afd3d22cd35ef3b5e3dc2e2651ad10a586f230804ece94dcd65ac7867639fb",
+              "propertiesCount": 0
+            },
+            {
+              "name": "evidiq-compass__competitor_set",
+              "summaryChars": 142,
+              "summaryHash": "481d2a79be75a59e7fb8d7c944397a82415410d1fa39a60a66d659f45b0d72ea",
+              "schemaChars": 645,
+              "schemaHash": "6ef59e77c30d0801d1afe62170348a6f8e67523226490a7196298ff0225a49a1",
+              "propertiesCount": 6
+            },
+            {
+              "name": "evidiq-compass__counterparty_history",
+              "summaryChars": 207,
+              "summaryHash": "a9794845809befe478d9d39355019f049476d923fcb53a9e1789d1ef2a8c33b5",
+              "schemaChars": 221,
+              "schemaHash": "2488f325a50cca64d3802a45e350a69e9fe2eda2c923f4861de734b00b10cdbe",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-compass__demand_signal",
+              "summaryChars": 142,
+              "summaryHash": "9f692793dfd145a91d8862f82ba315d5ef434b886b92f084f77fd71c90c68658",
+              "schemaChars": 195,
+              "schemaHash": "dff1f442294635105c7ef635a575e36d55c261af964796e1daa69617e775f0fc",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-compass__estimate_cost",
+              "summaryChars": 155,
+              "summaryHash": "f91260310d29ae6b4a240dbd339a4ad8ec4686dab35ef84bfc3bd3b70c1c2880",
+              "schemaChars": 188,
+              "schemaHash": "f623044b43148654ce2ccc5aef7d236094743b5e69f34dd7a72105dde82999cf",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-compass__get_artifact",
+              "summaryChars": 124,
+              "summaryHash": "32e1bd66707aeb91506ca81da5cccebe1e4f096a711595098f67c9bcae06efbf",
+              "schemaChars": 187,
+              "schemaHash": "0ab173d2ed0875c34777469ed5ae0eb9a94c2abf9fc30cc87db11b6fa6e49e46",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-compass__listing_audit",
+              "summaryChars": 135,
+              "summaryHash": "9a9d9e5333f97bf6a7d60d69812dc0eb7eaa8ded684c757a8d4903603e87287c",
+              "schemaChars": 200,
+              "schemaHash": "819f75b6db52c56ff6587f1c875eb5bc581f0a30f65392d121fd5bd94ae66b0b",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-compass__market_rate",
+              "summaryChars": 161,
+              "summaryHash": "0dc3be1b73d8674c01e37fd3434f943bd84a880f2188146f7e5388d46f329e1a",
+              "schemaChars": 328,
+              "schemaHash": "951bea7079cc538e64424098c5193b5410e6048118b92e24a7a2f1345c7e102b",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-compass__price_my_service",
+              "summaryChars": 159,
+              "summaryHash": "b9ecd39a7ea7c1cdd717723f107e317e3c1bd1698b575b2531fc3e8c486e2943",
+              "schemaChars": 502,
+              "schemaHash": "dafd60f3b0acf88f243ce28ebbec59732b4a9bd7882d31e8f3aad9473f3f424e",
+              "propertiesCount": 5
+            },
+            {
+              "name": "evidiq-compass__price_trend",
+              "summaryChars": 138,
+              "summaryHash": "d4d8ef4ffb5368bf7879f78471b365e6ce7863c6f981dc9aefe331532f6faf95",
+              "schemaChars": 264,
+              "schemaHash": "379f69fbeeb6958ced27614b994107f8f7c1a11a0d1cfe5451cce4042cf0e134",
+              "propertiesCount": 2
+            },
+            {
+              "name": "evidiq-compass__quote_advisor",
+              "summaryChars": 159,
+              "summaryHash": "6b8c9322ec1e06e7362161d02e17fbfb890ee390e8b31882ae1c2f4cf6ede462",
+              "schemaChars": 429,
+              "schemaHash": "f2034e75633a61fa67e3e21ee45f70bb624e90927858e9dc9e77c048074c7cb9",
+              "propertiesCount": 4
+            },
+            {
+              "name": "evidiq-compass__service_gap",
+              "summaryChars": 173,
+              "summaryHash": "7c78d58b7970cff0c78ac7207ce0ae159d87fadcc63520d01cc5c1489c23fdf1",
+              "schemaChars": 232,
+              "schemaHash": "abc2db00f0e4a0147c64b72c07374bade9ba05728c18a50a2c47548e83f743a0",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-compass__snapshot_status",
+              "summaryChars": 167,
+              "summaryHash": "fe1579597404fc9bdbd249e6531b214ec06786f573b64400c862556b293a58b6",
+              "schemaChars": 85,
+              "schemaHash": "55afd3d22cd35ef3b5e3dc2e2651ad10a586f230804ece94dcd65ac7867639fb",
+              "propertiesCount": 0
+            },
+            {
+              "name": "evidiq-compass__validate_query",
+              "summaryChars": 176,
+              "summaryHash": "e25f434078936c841847539c50c09e711d1f0d8210d2db38547b2b16dba4dc9c",
+              "schemaChars": 421,
+              "schemaHash": "953494469680c043ef9371fb64c3a15ae5c6d27fb187b23a0bf7a70ce6ac1795",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-compass__verify_compass_report",
+              "summaryChars": 135,
+              "summaryHash": "0ee75480d96bea97a59748941dbbfc1ed652c9b9fb0558470ba1166361f0a829",
+              "schemaChars": 403,
+              "schemaHash": "a8201f6a0c05e7508bcd3d296b1a747e101a3da2b570d1c85288f049d6878958",
+              "propertiesCount": 4
+            },
+            {
+              "name": "evidiq-compass__whoami_listing",
+              "summaryChars": 206,
+              "summaryHash": "15268a90dd04d765a7393e29c8d0c7c6279fa08cbab17b1bd0f003eb529a7bde",
+              "schemaChars": 194,
+              "schemaHash": "4b5c187b751a09ec9f73e515020f4cb0359d7e6d5f775baf3bf86a789e0866dd",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__assess_attachment_surface",
+              "summaryChars": 183,
+              "summaryHash": "96b5ae5dee66b71f8de0f397ccb2a48d8bd578ca9498c6999a5ed110e74f48ab",
+              "schemaChars": 480,
+              "schemaHash": "41657adc20275165825c094b7e16a538dcf042358b160c4d03bf8d3a79ac26ac",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-envelope__assess_link_surface",
+              "summaryChars": 150,
+              "summaryHash": "e0f7cf21395b973f8da72979a6741bae038943a5a5955274a4ea5fa7a9d59eb5",
+              "schemaChars": 480,
+              "schemaHash": "4c6537656f09425ed04f35b26be22a7128a253a1bb7253db1b50d22a509d4596",
+              "propertiesCount": 3
+            },
+            {
+              "name": "evidiq-envelope__attest_message_verdict",
+              "summaryChars": 192,
+              "summaryHash": "f233c64fe16dba2f8797af142f98a6e68b6c8afd0f3010b1874ab3c74d07415a",
+              "schemaChars": 206,
+              "schemaHash": "fabc295e273a7a108d5ab16a379080eba924d645319daffc1d6e887fad5cac4e",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__audit_header_chain",
+              "summaryChars": 130,
+              "summaryHash": "cee961a81c87696eac33681853a5a6bb9b3419c3bca52b8d73190a0642218785",
+              "schemaChars": 206,
+              "schemaHash": "fabc295e273a7a108d5ab16a379080eba924d645319daffc1d6e887fad5cac4e",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__check_dmarc_alignment",
+              "summaryChars": 177,
+              "summaryHash": "fcf8001724569b36a4dc63b736d365fede7dddb48d28d17b5e7289f518e23299",
+              "schemaChars": 206,
+              "schemaHash": "fabc295e273a7a108d5ab16a379080eba924d645319daffc1d6e887fad5cac4e",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__check_dns_txt",
+              "summaryChars": 136,
+              "summaryHash": "7ca5fadbf23faae29548c912b516866d348b1a2fcc512cce82a572fbdef44f85",
+              "schemaChars": 278,
+              "schemaHash": "6b634b188558ab60287862ab99c4e329668bc7daec898e71fa1c94482b594ed8",
+              "propertiesCount": 2
+            },
+            {
+              "name": "evidiq-envelope__detect_sender_spoofing",
+              "summaryChars": 189,
+              "summaryHash": "c525a72d1d5c124050a3b79a445145840b33f48f55f8d613c62f160c1df22d82",
+              "schemaChars": 357,
+              "schemaHash": "fc8b001ded472c14786c9984da6fcf4799c01b561adf1a9e51c76aa790497515",
+              "propertiesCount": 2
+            },
+            {
+              "name": "evidiq-envelope__envelope_capabilities",
+              "summaryChars": 132,
+              "summaryHash": "daed66c3817c5df4761b757b82ace56c537d71ab32c204ae181ae8ebbba67c79",
+              "schemaChars": 85,
+              "schemaHash": "55afd3d22cd35ef3b5e3dc2e2651ad10a586f230804ece94dcd65ac7867639fb",
+              "propertiesCount": 0
+            },
+            {
+              "name": "evidiq-envelope__estimate_cost",
+              "summaryChars": 155,
+              "summaryHash": "f91260310d29ae6b4a240dbd339a4ad8ec4686dab35ef84bfc3bd3b70c1c2880",
+              "schemaChars": 196,
+              "schemaHash": "d9e7443adbac7b9118592027e1a5467b4721105265de03d61ea015c6df6d6eec",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__explain_auth_result",
+              "summaryChars": 100,
+              "summaryHash": "cd9240205bf170141b33615ea2a341b475872de213cc2c56480e80788f0194ab",
+              "schemaChars": 204,
+              "schemaHash": "b007d36c099a2a2af0cce1c43d10d5e6d436b4590390e075d169a62f04497a7e",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__get_artifact",
+              "summaryChars": 114,
+              "summaryHash": "1fb3c5e06eca4e3708c5d6998980efb5793f3e5e852ecee94f6a1735ccc57218",
+              "schemaChars": 187,
+              "schemaHash": "0ab173d2ed0875c34777469ed5ae0eb9a94c2abf9fc30cc87db11b6fa6e49e46",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__parse_message_structure",
+              "summaryChars": 133,
+              "summaryHash": "133cd7262cc0e7dfa149cc1e3c85a837cf1cb50097c966200d25d3a68c3db04a",
+              "schemaChars": 183,
+              "schemaHash": "f449dd99d2ac14767afb4eb9e3981b6b92d849ba5b644621ee12b6bbe4f6c53d",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__screen_domain_posture",
+              "summaryChars": 154,
+              "summaryHash": "c102d02f1c43b837880b3ec83a5e13c2a5bf2574aa88c97d80a6914649f7c6e3",
+              "schemaChars": 366,
+              "schemaHash": "4204109f9188888a8f98e97f3b3e715bff125d38aa4c64aa942ef53389ad689d",
+              "propertiesCount": 2
+            },
+            {
+              "name": "evidiq-envelope__validate_arc_chain",
+              "summaryChars": 131,
+              "summaryHash": "8e7392a5979b761e9cc4cd9388e6c096a22a680a28bd333644e33a59d70c00bc",
+              "schemaChars": 206,
+              "schemaHash": "fabc295e273a7a108d5ab16a379080eba924d645319daffc1d6e887fad5cac4e",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__validate_message_input",
+              "summaryChars": 163,
+              "summaryHash": "f1c537845cd111755ec60a1a81696db005fbb1022ff3e0bbd825485a52a50bb3",
+              "schemaChars": 183,
+              "schemaHash": "f449dd99d2ac14767afb4eb9e3981b6b92d849ba5b644621ee12b6bbe4f6c53d",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__verify_dkim",
+              "summaryChars": 182,
+              "summaryHash": "c7429fea1c15aeb16630efbb49e9c32cde709b4777f94a6273620d840db0141b",
+              "schemaChars": 206,
+              "schemaHash": "fabc295e273a7a108d5ab16a379080eba924d645319daffc1d6e887fad5cac4e",
+              "propertiesCount": 1
+            },
+            {
+              "name": "evidiq-envelope__verify_envelope_report",
+              "summaryChars": 149,
+              "summaryHash": "229869303351bed92a8baa50bb6206d0ef77f62a91046cf0a6977d74d6257bf1",
+              "schemaChars": 409,
+              "schemaHash": "eb8893342050b20d6b8bc6cdda2fe018242241717cbd739e2b654b2c80818dff",
+              "propertiesCount": 4
+            },
+            {
+              "name": "evidiq-envelope__verify_message_auth",
+              "summaryChars": 151,
+              "summaryHash": "7ceb522deae2ebbdd5f1185899eb732db268d592318086d30982bafcaabcae95",
+              "schemaChars": 206,
+              "schemaHash": "fabc295e273a7a108d5ab16a379080eba924d645319daffc1d6e887fad5cac4e",
+              "propertiesCount": 1
+            }
+          ]
+        },
+        "currentTurn": {
+          "promptChars": 2450,
+          "runtimeContextChars": 0
+        }
+      },
+      "finalPromptText": "Live-test the EVIDIQ Envelope MCP server (already configured as the `evidiq-envelope` MCP server, streamable HTTP at https://mcp.evidiq.dev/envelope/mcp). This is a Phase 1 test run: the x402 gate is bypassed, so every tool including the paid ones will answer 200 — the point is to prove every tool's behaviour, not the gate.\n\nUse this message for every paid tool call:\n\nMSG:\nReceived: from mail.example.com (mail.example.com [203.0.113.1])\n\tby mx.example.com with ESMTP id e001\n\tfor <bob@example.com>; Fri, 02 Jan 2026 10:01:00 +0000\nReturn-Path: <alice@example.com>\nFrom: Alice <alice@example.com>\nTo: bob@example.com\nSubject: Settle the invoice\nDate: Fri, 02 Jan 2026 10:00:00 +0000\nMessage-ID: <m12345@example.com>\nMIME-Version: 1.0\nContent-Type: text/plain; charset=\"utf-8\"\n\nPlease settle the attached invoice of 100 USDT0 before end of week.\n\nExercise ALL 18 tools and report each result on its own line with ✓ or ✗:\n\nFREE tools:\n1. envelope_capabilities {}\n2. estimate_cost {\"tool\":\"verify_message_auth\"}\n3. validate_message_input {\"message\":\"MSG\"}\n4. parse_message_structure {\"message\":\"MSG\"}\n5. explain_auth_result {\"code\":\"dkim=fail (body hash mismatch)\"}\n6. check_dns_txt {\"domain\":\"example.com\",\"selector\":\"default\"}\n7. verify_envelope_report {\"digest\":\"0x9c45f9371384366fd937c5202827d9dac526b540ee7c7af69a96ec67705d5414\",\"signature\":\"0x0d3346adf2c3167320715a6123ec84efe8ef2092b4e9bc85b7bac2c722d2d14c1e8440f608805ad9eccd63bc836239bf8f041f853eb5e27c1cce85e824f3f3441b\",\"signer\":\"0x8a3c7524Aaed081825aC88eC7f4cCECFc583ee7D\"}\n8. get_artifact {\"digest\":\"0x9c45f9371384366fd937c5202827d9dac526b540ee7c7af69a96ec67705d5414\"}\n\nPAID tools (bypass is on, they will answer 200):\n9. verify_dkim {\"message\":\"MSG\"}\n10. check_dmarc_alignment {\"message\":\"MSG\"}\n11. verify_message_auth {\"message\":\"MSG\"}\n12. validate_arc_chain {\"message\":\"MSG\"}\n13. detect_sender_spoofing {\"message\":\"MSG\",\"expectedSenders\":[\"alice@example.com\"]}\n14. audit_header_chain {\"message\":\"MSG\"}\n15. assess_attachment_surface {\"message\":\"MSG\",\"attachmentNames\":[\"invoice.pdf.exe\"]}\n16. assess_link_surface {\"message\":\"MSG\",\"links\":[{\"href\":\"https://examp1e.com/pay\",\"anchorText\":\"Pay now\"}]}\n17. screen_domain_posture {\"domain\":\"example.com\"}\n18. attest_message_verdict {\"message\":\"MSG\"}\n\nThen report: for each tool, one line \"name → 200 ✓ (one-line summary of the key field, e.g. verdict, digest, anchor status)\". End with a one-line summary of the run. Do not write any files.",
+      "finalAssistantVisibleText": "All 18 tools returned. Here's the full report:\n\n**FREE tools:**\n1. **envelope_capabilities** → 200 ✓ — 18 tools listed (10 paid, 8 free), 8 claim limits, boundaries to Bulwark/Circuit/Redact\n2. **estimate_cost** → 200 ✓ — verify_message_auth = 0.01 USDT0 (10000 atomic, eip155:196)\n3. **validate_message_input** → 200 ✓ — parseable, 0 auth headers present, 6 paid checks can run\n4. **parse_message_structure** → 200 ✓ — 9 headers, 1 Received hop, 0 attachments, 0 links, body 67 bytes\n5. **explain_auth_result** → 200 ✓ — body hash mismatch = signature present but altered or not genuine; does not prove intent/safety\n6. **check_dns_txt** → 200 ✓ — SPF `v=spf1 -all`, DMARC `p=reject`, DKIM default selector empty key\n7. **verify_envelope_report** → 200 ✓ — signatureValid=true, signer matches fleet 0x8a3c…ee7D, knownToThisService=true\n8. **get_artifact** → 200 ✓ — artifact retrieved with anchorRoot + anchorTx, verdict \"not-authenticated\", libraryVersion 4.13.3\n\n**PAID tools (gate bypassed, all answered 200):**\n9. **verify_dkim** → 200 ✓ — 0/1 signatures verify, verdict \"signed-but-not-verifying\" (message not signed), digest 0xf8ea…\n10. **check_dmarc_alignment** → 200 ✓ — verdict \"dmarc-not-aligned\", neither DKIM nor SPF aligns under strict (adkim=s, aspf=s)\n11. **verify_message_auth** → 200 ✓ — verdict \"not-authenticated\", DKIM=none, SPF=fail (-all), DMARC=fail (reject), ARC=none\n12. **validate_arc_chain** → 200 ✓ — verdict \"no-arc-chain\", normal for directly delivered mail, auth-results captured\n13. **detect_sender_spoofing** → 200 ✓ — verdict \"no-indicators\", From=Return-Path=alice@example.com, matches expected sender\n14. **audit_header_chain** → 200 ✓ — verdict \"no-anomalies\", 1 hop (mail.example.com → mx.example.com) internally consistent\n15. **assess_attachment_surface** → 200 ✓ — verdict \"risky-attachments\", double extension .pdf.exe (high) + macro-capable .exe (warning)\n16. **assess_link_surface** → 200 ✓ — verdict \"no-risk-indicators\", 1 link checked (examp1e.com/pay — note: lookalike not flagged without expectedSenders for comparison)\n17. **screen_domain_posture** → 200 ✓ — verdict \"no-critical-gaps\", SPF valid -all, DMARC reject strong, 6 DKIM selectors resolvable, DNSSEC absent (info)\n18. **attest_message_verdict** → 200 ✓ — digest 0x7af1…, anchored to 0G (root 0x4ad2…, tx 0xaf89…), EIP-191 signed, verdict \"not-authenticated\"\n\n---\n\n**Run summary:** 18/18 tools → 200 ✓, 0 ✗ — every free and paid tool on the Envelope MCP responded correctly with signed, digested reports; the test message (unsigned, SPF=-all, DMARC=reject) consistently produced \"not-authenticated\" across all auth-checking tools, the attestation anchored to 0G successfully, and the one behavioral note is that `assess_link_surface` did not flag the `examp1e.com` lookalike because no `expectedSenders` were passed for domain comparison.",
+      "finalAssistantRawText": "All 18 tools returned. Here's the full report:\n\n**FREE tools:**\n1. **envelope_capabilities** → 200 ✓ — 18 tools listed (10 paid, 8 free), 8 claim limits, boundaries to Bulwark/Circuit/Redact\n2. **estimate_cost** → 200 ✓ — verify_message_auth = 0.01 USDT0 (10000 atomic, eip155:196)\n3. **validate_message_input** → 200 ✓ — parseable, 0 auth headers present, 6 paid checks can run\n4. **parse_message_structure** → 200 ✓ — 9 headers, 1 Received hop, 0 attachments, 0 links, body 67 bytes\n5. **explain_auth_result** → 200 ✓ — body hash mismatch = signature present but altered or not genuine; does not prove intent/safety\n6. **check_dns_txt** → 200 ✓ — SPF `v=spf1 -all`, DMARC `p=reject`, DKIM default selector empty key\n7. **verify_envelope_report** → 200 ✓ — signatureValid=true, signer matches fleet 0x8a3c…ee7D, knownToThisService=true\n8. **get_artifact** → 200 ✓ — artifact retrieved with anchorRoot + anchorTx, verdict \"not-authenticated\", libraryVersion 4.13.3\n\n**PAID tools (gate bypassed, all answered 200):**\n9. **verify_dkim** → 200 ✓ — 0/1 signatures verify, verdict \"signed-but-not-verifying\" (message not signed), digest 0xf8ea…\n10. **check_dmarc_alignment** → 200 ✓ — verdict \"dmarc-not-aligned\", neither DKIM nor SPF aligns under strict (adkim=s, aspf=s)\n11. **verify_message_auth** → 200 ✓ — verdict \"not-authenticated\", DKIM=none, SPF=fail (-all), DMARC=fail (reject), ARC=none\n12. **validate_arc_chain** → 200 ✓ — verdict \"no-arc-chain\", normal for directly delivered mail, auth-results captured\n13. **detect_sender_spoofing** → 200 ✓ — verdict \"no-indicators\", From=Return-Path=alice@example.com, matches expected sender\n14. **audit_header_chain** → 200 ✓ — verdict \"no-anomalies\", 1 hop (mail.example.com → mx.example.com) internally consistent\n15. **assess_attachment_surface** → 200 ✓ — verdict \"risky-attachments\", double extension .pdf.exe (high) + macro-capable .exe (warning)\n16. **assess_link_surface** → 200 ✓ — verdict \"no-risk-indicators\", 1 link checked (examp1e.com/pay — note: lookalike not flagged without expectedSenders for comparison)\n17. **screen_domain_posture** → 200 ✓ — verdict \"no-critical-gaps\", SPF valid -all, DMARC reject strong, 6 DKIM selectors resolvable, DNSSEC absent (info)\n18. **attest_message_verdict** → 200 ✓ — digest 0x7af1…, anchored to 0G (root 0x4ad2…, tx 0xaf89…), EIP-191 signed, verdict \"not-authenticated\"\n\n---\n\n**Run summary:** 18/18 tools → 200 ✓, 0 ✗ — every free and paid tool on the Envelope MCP responded correctly with signed, digested reports; the test message (unsigned, SPF=-all, DMARC=reject) consistently produced \"not-authenticated\" across all auth-checking tools, the attestation anchored to 0G successfully, and the one behavioral note is that `assess_link_surface` did not flag the `examp1e.com` lookalike because no `expectedSenders` were passed for domain comparison.",
+      "replayInvalid": true,
+      "livenessState": "working",
+      "stopReason": "stop",
+      "executionTrace": {
+        "winnerProvider": "zerog",
+        "winnerModel": "glm-5.2",
+        "attempts": [
+          {
+            "provider": "zerog",
+            "model": "glm-5.2",
+            "result": "success",
+            "stage": "assistant"
+          }
+        ],
+        "fallbackUsed": false,
+        "runner": "embedded"
+      },
+      "requestShaping": {
+        "thinking": "off"
+      },
+      "toolSummary": {
+        "calls": 18,
+        "tools": [
+          "evidiq-envelope__envelope_capabilities",
+          "evidiq-envelope__estimate_cost",
+          "evidiq-envelope__validate_message_input",
+          "evidiq-envelope__parse_message_structure",
+          "evidiq-envelope__explain_auth_result",
+          "evidiq-envelope__check_dns_txt",
+          "evidiq-envelope__verify_envelope_report",
+          "evidiq-envelope__get_artifact",
+          "evidiq-envelope__verify_dkim",
+          "evidiq-envelope__check_dmarc_alignment",
+          "evidiq-envelope__verify_message_auth",
+          "evidiq-envelope__validate_arc_chain",
+          "evidiq-envelope__detect_sender_spoofing",
+          "evidiq-envelope__audit_header_chain",
+          "evidiq-envelope__assess_attachment_surface",
+          "evidiq-envelope__assess_link_surface",
+          "evidiq-envelope__screen_domain_posture",
+          "evidiq-envelope__attest_message_verdict"
+        ],
+        "failures": 0
+      },
+      "completion": {
+        "stopReason": "stop",
+        "finishReason": "stop"
+      }
+    }
+  }
+}
