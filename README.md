@@ -1,0 +1,303 @@
+<p align="center">
+  <h1 align="center">EVIDIQ Envelope</h1>
+</p>
+
+<p align="center"><strong>Cryptographic verification of inbound messages</strong></p>
+
+<p align="center">
+  SPF, DKIM, DMARC and ARC on the raw message, sender-spoofing and lookalike-domain
+  detection, header-chain forensics, and structural risk of attachments and links —
+  with the DNS answers pinned into a signed report. Service #19 of the EVIDIQ fleet.
+</p>
+
+<p align="center">
+  <a href="https://evidiq.dev">evidiq.dev</a> &middot;
+  <a href="https://mcp.evidiq.dev/envelope/skill.md">Agent Skill</a> &middot;
+  <a href="https://github.com/evidiq/evidiq-envelope-mcp">Envelope MCP</a>
+</p>
+
+<p align="center">
+  <a href="https://mcp.evidiq.dev/envelope/mcp"><img src="https://img.shields.io/badge/MCP%20Server-Active-3CCF4E?style=flat-square" alt="MCP Server active" /></a>
+  <a href="https://www.oklink.com/xlayer"><img src="https://img.shields.io/badge/X%20Layer-USDT0-3CCF4E?style=flat-square" alt="X Layer USDT0" /></a>
+  <a href="https://mcp.evidiq.dev/envelope/x402"><img src="https://img.shields.io/badge/x402-0.005%E2%80%930.03%20USDT0-2563EB?style=flat-square" alt="x402: 0.005 to 0.03 USDT0" /></a>
+  <a href="https://web3.okx.com/onchainos/dev-docs/payments/service-seller-sdk"><img src="https://img.shields.io/badge/Payments-Official%20OKX%20SDK-121212?style=flat-square&logo=okx&logoColor=white" alt="Official OKX Payment SDK" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-3DA639?style=flat-square" alt="License: MIT" /></a>
+</p>
+
+---
+
+**Bulwark reads what the message says. Envelope proves who sent it.**
+
+Agents now read mailboxes and act on what they find — and nothing verifies that the
+message is from who it claims to be. The entire commercial DMARC category protects
+*your outgoing* domain's reputation; not one product helps an agent decide whether the
+message in front of it is real. Envelope is that missing direction: pure cryptography
+over the caller's own bytes plus a handful of DNS TXT lookups.
+
+1. **Authentication core** — SPF, DKIM, DMARC and ARC verification over the raw message
+   (`mailauth@4.13.3`), with every DNS answer pinned into the report so a verdict is
+   meaningful against the records as they stood at verification time, not today's DNS.
+2. **MCP server** — 18 tools (8 free, 10 paid): `verify_dkim`, `check_dmarc_alignment`,
+   `verify_message_auth`, `validate_arc_chain`, `detect_sender_spoofing`,
+   `audit_header_chain`, `assess_attachment_surface`, `assess_link_surface`,
+   `screen_domain_posture`, `attest_message_verdict` for money; the free eight cover
+   capabilities, cost, input validation, structure, explanation, raw DNS, report
+   verification and artifact retrieval.
+
+> **Launch status: Phase 1 — live, gate bypassed, not yet listed.** Deployed at
+> `https://mcp.evidiq.dev/envelope/mcp` (port 3020) with the x402 gate bypassed so every
+> tool can be exercised before payment goes live. **Phase 2 (gate on, OKX.AI
+> registration, live paid settlement) is planned — the table cells below stay blank
+> until observed.**
+>
+> **§6 fixture gate:** passed 7/7 against `mailauth@4.13.3` with three documented
+> findings, each reported to the operator and approved before work continued (details
+> in the Verification Log below). This is a security product: the gate exists so a false
+> pass cannot become permanent.
+
+---
+
+## What it does
+
+- **SPF, DKIM, DMARC, ARC on the raw message** — per-signature DKIM detail (body hash,
+  key retrieval, algorithm, expiry, reason per failure), identifier alignment computed
+  per RFC 7489, ARC chain validation for forwarded mail, and a composite verdict with
+  the pinned DNS records behind it.
+- **Sender-spoofing detection** — display-name impersonation, lookalike domains by
+  homoglyph, punycode and edit distance against caller-supplied expected senders, plus
+  Reply-To / Return-Path divergence.
+- **Header-chain forensics** — Received-chain hop consistency, timestamp ordering,
+  injected or duplicated critical headers, gaps that indicate a forged path.
+- **Structural attachment and link risk** — extension against magic bytes, double
+  extensions, macro-capable formats, encrypted archives; punycode hosts, anchor-text
+  divergence, credential-shaped URLs, redirector patterns. **Nothing is fetched,
+  opened, extracted or executed.**
+- **Pinned, signed, verifiable** — every report carries `messageHash`, `checks`,
+  `verdict`, `pinnedDns`, `libraryVersion` and `verifiedAt` in a JCS digest signed
+  EIP-191 by the fleet signer; `attest_message_verdict` additionally anchors it on 0G.
+  The raw message is processed in memory and never persisted.
+- **No model in the verdict path** — cryptographic verification is arithmetic. An LLM
+  may phrase an explanation for a human; it never decides whether a signature is valid.
+
+---
+
+## Route to Envelope when
+
+Use Envelope **when an agent is about to act on an inbound message**: before processing
+an invoice, a calendar invite, a lead or a support request, prove who sent it
+(`verify_message_auth`), check the sender domain's own posture (`screen_domain_posture`),
+screen attachments and links structurally, and keep a signed, anchored record
+(`attest_message_verdict`) that survives key rotation.
+
+A natural chain: `envelope_capabilities` → `validate_message_input` → `estimate_cost` →
+`verify_message_auth` → `assess_attachment_surface` → `assess_link_surface` →
+`attest_message_verdict`.
+
+Boundaries: Bulwark owns what the text *says* (Envelope points to it and does not
+classify instruction-shaped content); Circuit owns webhook HMACs; Redact owns PII
+removal; Envelope neither redacts nor stores.
+
+---
+
+## Proven on-chain
+
+### 0G Storage Anchoring (0G mainnet, chain 16661)
+
+| Anchor tx | Storage root | Verified |
+|-----------|-------------|----------|
+| — | — | Planned for Phase 2 — cell stays blank until a real `attest_message_verdict` anchors. |
+
+### x402 Payment Settlement (X Layer, chain 196)
+
+| Tool | Amount | Settlement tx | Result |
+|------|--------|---------------|--------|
+| — | — | — | Planned for Phase 2 (gate on) — cell stays blank until a real paid call settles. |
+
+---
+
+## OKX.AI Marketplace Registration
+
+| Property | Value |
+| :--- | :--- |
+| **Agent ID** | — (Phase 2) |
+| **Agent Name** | — (Phase 2) |
+| **Listing Status** | Not yet registered |
+| **Registration Tx** | — (Phase 2) |
+| **OKX Agent URL** | — (Phase 2) |
+| **Agent Wallet** | `0x2a8efe3093278bb4bd3b2d9c7b5ba992ca4fc9b0` |
+| **Report Signer** | `0x8a3c7524Aaed081825aC88eC7f4cCECFc583ee7D` (fleet signer, EIP-191) |
+| **Services Registered** | — (Phase 2: 10 Paid $0.005–$0.03, 8 Free $0.00) |
+
+---
+
+## Eighteen MCP tools
+
+### Paid verification tools
+
+| Tool | USDT0 | Purpose |
+|------|-------|---------|
+| `verify_dkim` | `0.005` | Per-signature DKIM verification: canonicalisation, body hash, key retrieval, algorithm, expiry — with the reason for each failure. |
+| `check_dmarc_alignment` | `0.005` | DMARC policy for the From domain and RFC 7489 identifier alignment (DKIM `d=`, SPF domain; strict or relaxed). |
+| `verify_message_auth` | `0.01` | The composite verdict: SPF, DKIM, DMARC and alignment in one call, with the pinned DNS records behind it. |
+| `validate_arc_chain` | `0.01` | ARC chain validation so forwarded and mailing-list mail is not treated as forgery per hop. |
+| `detect_sender_spoofing` | `0.015` | Display-name impersonation, homoglyph / punycode / edit-distance lookalikes vs expected senders, Reply-To / Return-Path divergence. |
+| `audit_header_chain` | `0.015` | Received-chain forensics: hop consistency, timestamp ordering, injected or duplicated critical headers. |
+| `assess_attachment_surface` | `0.02` | Structural risk without opening anything: magic bytes vs extension, double extensions, macro-capable formats, encrypted archives. |
+| `assess_link_surface` | `0.02` | Structural link analysis without fetching: punycode hosts, anchor/href disagreement, credential-shaped URLs, redirectors, lookalikes. |
+| `screen_domain_posture` | `0.02` | Sender domain's own posture: SPF validity and lookup count, resolvable DKIM selectors, DMARC policy strength, DNSSEC, MX. |
+| `attest_message_verdict` | `0.03` | EIP-191 signed, 0G-anchored attestation of a verification, pinned DNS included — the record that survives key rotation. |
+
+### Free preflight and verification tools
+
+| Tool | Purpose |
+|------|---------|
+| `envelope_capabilities` | Catalog: 18 tools, prices, claim limits, boundaries against the other services. |
+| `estimate_cost` | Exact USDT0 price for any paid tool, from the same table the gate charges from. |
+| `validate_message_input` | Is this parseable, which auth headers are present, which paid checks can run — before paying. |
+| `parse_message_structure` | MIME tree and header inventory. Structure only, no verdict. |
+| `explain_auth_result` | Plain-language meaning of a result code, and what it does **not** prove. |
+| `check_dns_txt` | Raw SPF, DKIM-selector and DMARC records for a domain, no verdict. |
+| `verify_envelope_report` | Recompute the JCS digest and EIP-191-verify the signature. Verification is never charged. |
+| `get_artifact` | Retrieve a stored attested verdict by digest, including the 0G anchor if present. |
+
+---
+
+## Architecture
+
+```mermaid
+flowchart TB
+    agent["<b>AI agent / dev</b><br/>MCP client"]
+    request{"Tool call<br/>free or paid?"}
+    agent -->|POST /envelope/mcp| request
+
+    free["Free preflight & verification<br/>capabilities · estimate · validate<br/>structure · explain · dns_txt<br/>verify_report · get_artifact"]
+    gate["x402 v2 gate<br/>EIP-3009 exact · pay per check<br/>402 unpaid · settles on X Layer"]
+    xlayer[("X Layer<br/>USD₮0 · eip155:196")]
+    request -->|free helper| free
+    request -->|paid check| gate
+    gate -. verify and settle .-> xlayer
+
+    subgraph envelope["EVIDIQ Envelope trust boundary"]
+        direction TB
+        parse["1. Parse<br/>RFC 5322 / MIME inventory<br/>in memory, never persisted"]
+        auth["2. Authentication core<br/>mailauth 4.13.3 · SPF/DKIM/DMARC/ARC<br/>RFC 7489 alignment (local)"]
+        dns["3. Pinned DNS<br/>every answer recorded<br/>into the report"]
+        engines["4. Engines<br/>spoofing · headers · attachments<br/>links · domain posture"]
+        report["5. Report + attestation<br/>JCS digest · EIP-191 signature"]
+        parse --> auth
+        auth --> dns
+        auth --> engines
+        engines --> report
+        auth --> report
+        dns --> report
+    end
+
+    og[("0G Storage<br/>Merkle root · upload tx<br/>chain 16661")]
+    free --> parse
+    gate --> parse
+    report -. best effort .-> og
+    og -. root + tx .-> response
+
+    response["<b>MCP response</b><br/>checks + verdict + finding<br/>pinnedDns + libraryVersion + digest<br/>signature + signer · anchoring status"]
+
+    classDef client fill:#312e81,stroke:#a78bfa,color:#ffffff,stroke-width:2px;
+    classDef payment fill:#052e16,stroke:#4ade80,color:#ffffff,stroke-width:2px;
+    classDef core fill:#0f172a,stroke:#38bdf8,color:#ffffff,stroke-width:2px;
+    classDef output fill:#4c1d95,stroke:#c4b5fd,color:#ffffff,stroke-width:2px;
+    class agent,request client;
+    class free,gate,xlayer,og payment;
+    class parse,auth,dns,engines,report core;
+    class response output;
+    style envelope fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:2px;
+```
+
+---
+
+## Verification Log
+
+### §6 fixture gate — mailauth 4.13.3
+
+Seven crafted fixtures with known answers, built **before** any tool was registered
+(PLAN §12 step 1). Four agreed with the library outright; three found deviations, each
+reported to the operator and approved (2026-08-03) before work continued:
+
+| Fixture | Expected | mailauth 4.13.3 | Resolution |
+|---------|----------|-----------------|------------|
+| Valid DKIM signature | pass | `pass` | ✓ agreed |
+| One byte flipped in body | fail (body hash) | `neutral` "body hash did not verify" | **Finding F2** — label deviation, approved: asserted as *not pass with stated reason*; security outcome identical (neutral cannot pass DMARC). |
+| Key removed from DNS | fail (key-not-found), no crash | `neutral` "no key", no crash | **Finding F3** — label deviation, approved: asserted as *not pass with stated reason*. |
+| d= misaligned, strict vs relaxed | fail strict / pass relaxed | strict **passes** for subdomain `d=` | **Finding F4** — RFC 7489 deviation in mailauth's `getAlignment` (strict compares registrable domain); approved: Envelope computes RFC 7489 alignment itself (`lib/envelope/alignment.ts`) and the fixture tests **our** function. |
+| Two signatures, one broken | per-signature detail | `pass` + `fail` per signature | ✓ agreed |
+| SPF pass, From unaligned | must not read as safe | spf=pass, dmarc=fail | ✓ agreed |
+| Forwarded with valid ARC | not forgery | arc=pass, dkim preserved | ✓ agreed |
+
+The F2/F3 label semantics are carried into every report (`dkim=neutral` is surfaced as
+`not-pass` with its reason) and documented in `explain_auth_result`.
+
+### Offline test suite
+
+```
+npm test (vitest)               → 58 passed / 58 (4 files), tsc clean
+  test/fixture-gate.test.ts  ( 7)  → the §6 gate above (mailauth 4.13.3)
+  test/engines.test.ts      (22)  → spoofing, header chain, attachments, links
+  test/report.test.ts       (12)  → JCS digest over the closed field set, EIP-191
+                                    round-trip, unset signer throws, libraryVersion
+                                    is part of the digest
+  test/server.test.ts       (17)  → all 18 tools through the x402 gate (bypass),
+                                    free bare {} → 200, signed report round-trips,
+                                    attestation best-effort anchoring
+```
+
+### Live test (Phase 1, bypass on)
+
+To be appended after the live probe and the OpenClaw run — this file ships before the
+first deploy, so nothing here is claimed that has not been observed.
+
+### Phase 2 — planned, cells stay blank until observed
+
+```
+empty POST (with content-type)                     → (measure)
+POST without content-type                          → (measure)
+HEAD /mcp                                          → (measure)
+all 10 paid tools, bare {}                         → (measure)
+all 8 free tools, bare {}                          → (measure)
+onchainos payment quote --tool <name>              → (measure)
+onchainos payment pay                              → (measure: first real settlement)
+OKX.AI registration of all 18 tools                → (measure)
+```
+
+---
+
+## Use it from any agent
+
+```bash
+# Read the public Skill document
+curl -s https://mcp.evidiq.dev/envelope/skill.md
+
+# Inspect current x402 pricing discovery
+curl -s https://mcp.evidiq.dev/envelope/x402
+
+# Connect remote MCP server (OpenClaw)
+openclaw mcp add evidiq-envelope --transport streamable-http --url https://mcp.evidiq.dev/envelope/mcp
+
+# Connect remote MCP server (Claude Code)
+claude mcp add --transport http evidiq-envelope https://mcp.evidiq.dev/envelope/mcp
+```
+
+---
+
+## Self-host
+
+```bash
+docker build -t evidiq-envelope:latest .
+docker run -d --env-file .env -p 3020:3020 evidiq-envelope:latest
+# Endpoint: http://localhost:3020/mcp
+# Artifact store: ENVELOPE_DB_PATH (mounted volume) — hashes, findings and pinned
+# DNS only; raw messages are never persisted.
+```
+
+---
+
+## License
+
+EVIDIQ owns and licenses its original Envelope code under MIT. Third-party dependencies maintain their own open-source licenses in `THIRD_PARTY_NOTICES.md`.
