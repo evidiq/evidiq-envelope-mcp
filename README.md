@@ -50,7 +50,7 @@ over the caller's own bytes plus a handful of DNS TXT lookups.
 > registration, live paid settlement) is planned — the table cells below stay blank
 > until observed.**
 >
-> **§6 fixture gate:** passed 7/7 against `mailauth@4.13.3` with three documented
+> **Fixture gate:** passed 7/7 against `mailauth@4.13.3` with three documented
 > findings, each reported to the operator and approved before work continued (details
 > in the Verification Log below). This is a security product: the gate exists so a false
 > pass cannot become permanent.
@@ -215,10 +215,9 @@ flowchart TB
 
 ## Verification Log
 
-### §6 fixture gate — mailauth 4.13.3
+### Fixture gate — mailauth 4.13.3
 
-Seven crafted fixtures with known answers, built **before** any tool was registered
-(PLAN §12 step 1). Four agreed with the library outright; three found deviations, each
+Seven crafted fixtures with known answers, built **before** any tool was registered. Four agreed with the library outright; three found deviations, each
 reported to the operator and approved (2026-08-03) before work continued:
 
 | Fixture | Expected | mailauth 4.13.3 | Resolution |
@@ -238,7 +237,7 @@ The F2/F3 label semantics are carried into every report (`dkim=neutral` is surfa
 
 ```
 npm test (vitest)               → 58 passed / 58 (4 files), tsc clean
-  test/fixture-gate.test.ts  ( 7)  → the §6 gate above (mailauth 4.13.3)
+  test/fixture-gate.test.ts  ( 7)  → the fixture gate (mailauth 4.13.3)
   test/engines.test.ts      (22)  → spoofing, header chain, attachments, links
   test/report.test.ts       (12)  → JCS digest over the closed field set, EIP-191
                                     round-trip, unset signer throws, libraryVersion
@@ -283,7 +282,7 @@ anchor. Full run output in `docs/live-test/envelope-livetest-out.json`.
 ### Phase 2 — gate on, measured from outside (2026-08-03)
 
 Re-probed from outside with a curl user agent once `X402_BYPASS` was deleted from the
-container environment (runbook §54) and the service redeployed. Every value observed:
+container environment and the service redeployed. Every value observed:
 
 ```
 empty POST (with content-type)                     → 402 ✓
