@@ -105,13 +105,13 @@ removal; Envelope neither redacts nor stores.
 
 | Anchor tx | Storage root | Verified |
 |-----------|-------------|----------|
-| — | — | Planned for Phase 2 — cell stays blank until a real `attest_message_verdict` anchors. |
+| [`0xcbd7f01c…891de5`](https://chainscan.0g.ai/tx/0xcbd7f01cd75770757bd1c1a1f93ec5761027dc1f2be51477cd542c18cd891de5) | `0xa377a863…bbe23d147` | `attest_message_verdict` for the fixture message, signer `0x8a3c…ee7D`; second anchor observed during the OpenClaw run (root `0x4ad2…`, tx `0xaf89…`). |
 
 ### x402 Payment Settlement (X Layer, chain 196)
 
 | Tool | Amount | Settlement tx | Result |
 |------|--------|---------------|--------|
-| — | — | — | Planned for Phase 2 (gate on) — cell stays blank until a real paid call settles. |
+| `verify_dkim` | `0.005 USDT0` | [`0xb8e6ede1…15e51a0`](https://www.oklink.com/xlayer/tx/0xb8e6ede1e89d417f7103d42e00d55b0b91c6290c60375794a232ebcab15e51a0) | `settled` · tool executed with signed report, pinned DNS included |
 
 ---
 
@@ -280,17 +280,20 @@ anchor. Full run output in `docs/live-test/envelope-livetest-out.json`.
 
 ![EVIDIQ Envelope MCP — live test report](./docs/live-test/report.png)
 
-### Phase 2 — planned, cells stay blank until observed
+### Phase 2 — gate on, measured from outside (2026-08-03)
+
+Re-probed from outside with a curl user agent once `X402_BYPASS` was deleted from the
+container environment (runbook §54) and the service redeployed. Every value observed:
 
 ```
-empty POST (with content-type)                     → (measure)
-POST without content-type                          → (measure)
-HEAD /mcp                                          → (measure)
-all 10 paid tools, bare {}                         → (measure)
-all 8 free tools, bare {}                          → (measure)
-onchainos payment quote --tool <name>              → (measure)
-onchainos payment pay                              → (measure: first real settlement)
-OKX.AI registration of all 18 tools                → (measure)
+empty POST (with content-type)                     → 402 ✓
+POST without content-type                          → 415 ✓
+HEAD /mcp                                          → 402 ✓ (72ms, no hang)
+all 10 paid tools, bare {}                         → 402 ✓
+all 8 free tools, bare {}                          → 200 with content ✓
+onchainos payment quote --tool <name>              → 0.005–0.03 USDT0, hasBalance true
+onchainos payment pay (verify_dkim, cheapest)      → settled · tx 0xb8e6ede1…15e51a0
+OKX.AI registration of all 18 tools                → handled separately (steps 12–13)
 ```
 
 ---
