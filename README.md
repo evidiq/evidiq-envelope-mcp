@@ -48,11 +48,10 @@ over the caller's own bytes plus a handful of DNS TXT lookups.
    capabilities, cost, input validation, structure, explanation, raw DNS, report
    verification and artifact retrieval.
 
-> **Launch status: registered, listing under review.** Deployed at
-> `https://mcp.evidiq.dev/envelope/mcp` (port 3020), the x402 gate is on, and a real
-> paid call has settled on X Layer. Registered on OKX.AI as Agent **#10435** with all
-> 18 tools — the service diff against live `tools/list` is empty in both directions.
-> Listing status: `Listing under review`.
+> **Launch status: live on OKX.AI.** Deployed at `https://mcp.evidiq.dev/envelope/mcp`
+> (port 3020), the x402 gate is on, and a real paid call has settled on X Layer.
+> Registered on OKX.AI as Agent **#10435** with all 18 tools — the service diff
+> against live `tools/list` is empty in both directions; the listing is **approved**.
 >
 > **Fixture gate:** passed 7/7 against `mailauth@4.13.3` with three documented
 > findings, each reported to the operator and approved before work continued (details
@@ -125,7 +124,7 @@ removal; Envelope neither redacts nor stores.
 | :--- | :--- |
 | **Agent ID** | `#10435` |
 | **Agent Name** | `EVIDIQ Envelope` |
-| **Listing Status** | `Listing under review` |
+| **Listing Status** | `Listed` |
 | **Registration Tx** | [`0xa333cbc0…f3011`](https://www.oklink.com/xlayer/tx/0xa333cbc0b7bf519f3cc88f739afe192925f2810bc864b393562ff943a17f3011) |
 | **OKX Agent URL** | https://www.okx.ai/agents/10435 |
 | **Agent Wallet** | `0x2a8efe3093278bb4bd3b2d9c7b5ba992ca4fc9b0` |
