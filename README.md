@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="./logo.png" alt="EVIDIQ Envelope" width="160" />
+</p>
+
+<p align="center">
   <h1 align="center">EVIDIQ Envelope</h1>
 </p>
 
